@@ -1,0 +1,19 @@
+# Dependencias y compilación (Docker las genera dentro del contenedor)
+node_modules/
+dist/
+.vite/
+
+# Registros
+*.log
+npm-debug.log*
+
+# Variables de entorno locales
+.env
+.env.*
+
+# Sistema operativo y editores
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
