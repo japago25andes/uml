@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Speech } from './Mascot.jsx';
 import { sfx } from '../lib/sound.js';
 
-export default function Welcome({ savedName, onStart, onContinue }) {
+export default function Welcome({ savedName, onStart, onContinue, onLoadFile }) {
   const [name, setName] = useState('');
 
   function submit(e) {
@@ -58,6 +58,12 @@ export default function Welcome({ savedName, onStart, onContinue }) {
             </div>
           </form>
         )}
+
+        <div className="welcome-load">
+          <button type="button" className="link-btn" onClick={onLoadFile}>
+            📂 ¿Vienes de otro equipo? Carga tu archivo de progreso
+          </button>
+        </div>
 
         <div className="feature-row">
           <div>🕰️<span>Viaje en el tiempo</span></div>

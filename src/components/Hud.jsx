@@ -1,6 +1,6 @@
 import { BADGES, MAX_STARS, rankFor, totalStars, totalXp } from '../data/game.js';
 
-export default function Hud({ progress, onNav, onToggleMute }) {
+export default function Hud({ progress, onNav, onSave, onToggleMute }) {
   const xp = totalXp(progress);
   const { current, next, progress: frac } = rankFor(xp);
 
@@ -33,6 +33,7 @@ export default function Hud({ progress, onNav, onToggleMute }) {
       </div>
 
       <nav className="hud-nav">
+        <button className="btn btn-ghost btn-sm" onClick={onSave} title="Guardar o cargar tu progreso">💾 Progreso</button>
         <button className="btn btn-ghost btn-sm" onClick={() => onNav('notes')}>📘 Apuntes</button>
         <button className="btn btn-ghost btn-sm" onClick={() => onNav('badges')}>🏆 Logros</button>
         <button className="btn btn-ghost btn-icon" onClick={onToggleMute} title={progress.muted ? 'Activar sonido' : 'Silenciar'}>

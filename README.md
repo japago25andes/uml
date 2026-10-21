@@ -199,7 +199,13 @@ Hay dos formas de usarla en el aula:
 ### Sobre el progreso de los estudiantes
 
 - Se guarda en el **navegador de cada estudiante** (`localStorage`). No hay base de datos ni cuentas.
-- Si cambian de navegador u ordenador, o borran los datos de navegación, empiezan de cero.
+- Para **llevar el progreso a otro equipo** (por ejemplo, de la sala de cómputo al portátil de casa) está el **archivo de progreso**:
+  1. En el juego, botón **💾 Progreso → Descargar archivo**. Se descarga un `.txt`, por ejemplo `progreso-uml-juan-perez-2026-10-21.txt`.
+  2. El estudiante lo guarda en su correo, Drive o una USB.
+  3. En el otro equipo, en la pantalla de inicio: **📂 ¿Vienes de otro equipo? Carga tu archivo de progreso** (o **💾 Progreso → Elegir archivo**, o arrastrando el archivo a la ventana). El juego muestra un resumen y pide confirmación antes de reemplazar lo que haya.
+- El archivo guarda **todo**: nombre, niveles, estrellas, XP, rachas e insignias. Su contenido va **codificado y sellado**: no se puede leer con el Bloc de notas y, si se cambia una sola letra, el juego lo rechaza. Cada archivo solo sirve para su propio juego. (Es una protección contra la edición a mano, no cifrado de alta seguridad.)
+- Al terminar cada nivel aparece el botón **💾 Guardar progreso**, para que guardarlo se vuelva costumbre.
+- Sin ese archivo, si cambian de navegador u ordenador o borran los datos de navegación, empiezan de cero.
 - Desde el mapa, el botón **"Reiniciar progreso"** borra la partida de ese navegador.
 - Al terminar, cada estudiante obtiene un **certificado imprimible** (o guardable como PDF) con su nombre, rango, XP, estrellas e insignias. Puede servir como evidencia de actividad.
 
@@ -383,7 +389,9 @@ uml-quest/
 | Error al construir relacionado con *bake* o *buildkit* | Algunas versiones de Docker Compose | Ejecuta `set COMPOSE_BAKE=false` (Windows cmd) o `export COMPOSE_BAKE=false` (macOS/Linux) y repite. `iniciar.bat` ya lo hace |
 | No veo mis cambios | No se reconstruyó la imagen, o el navegador usa la caché | `docker compose up -d --build` y recarga con `Ctrl + F5` |
 | El enlace "Siguiente misión" no abre nada | El juego de Casos de Uso no está levantado | Arranca también `casos-de-uso-quest` (puerto 8080) |
-| Un estudiante perdió su progreso | Cambió de navegador o borró los datos de navegación | El progreso vive en cada navegador; debe usar siempre el mismo |
+| Un estudiante perdió su progreso | Cambió de navegador o borró los datos de navegación | El progreso vive en cada navegador. Si guardó su archivo de progreso, que lo cargue con **💾 Progreso**; si no, debe usar siempre el mismo navegador |
+| Al cargar el archivo dice «fue modificado o está dañado» | Se abrió y editó, o se dañó al copiarlo | Usar el archivo original descargado del juego, sin editarlo |
+| Al cargar el archivo dice «es de Misión: …» | Es el archivo de otro juego del curso | Cargarlo en ese juego |
 | Los jeroglíficos se ven como cuadrados | Falta la fuente en el sistema (Windows la incluye; algunos Linux no) | Instala *Noto Sans Egyptian Hieroglyphs* o ignóralo: el resto funciona igual |
 
 ---

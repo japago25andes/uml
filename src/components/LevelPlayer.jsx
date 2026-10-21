@@ -14,7 +14,7 @@ import { sfx } from '../lib/sound.js';
 const COMPONENTS = { quiz: Quiz, pick: Pick, classify: Classify, order: Order, spot: Spot, builder: Builder };
 const PRAISE = ['¡Excelente!', '¡Bien hecho!', '¡Así se hace!', '¡Impecable!', '¡Crack!', '¡Brillante!'];
 
-export default function LevelPlayer({ level, streak, onStreak, onFinish, onExit, onRetry, onNext, onCertificate, alreadyDone }) {
+export default function LevelPlayer({ level, streak, onStreak, onFinish, onExit, onRetry, onNext, onCertificate, onSave, alreadyDone }) {
   const [phase, setPhase] = useState('lesson');
   const [idx, setIdx] = useState(0);
   const [hearts, setHearts] = useState(MAX_HEARTS);
@@ -140,6 +140,7 @@ export default function LevelPlayer({ level, streak, onStreak, onFinish, onExit,
             <div className="results-actions">
               <button className="btn btn-ghost" onClick={onRetry}>↻ Repetir</button>
               <button className="btn btn-ghost" onClick={onExit}>🗺️ Mapa</button>
+              <button className="btn btn-ghost" onClick={onSave}>💾 Guardar progreso</button>
               {onNext && <button className="btn btn-primary btn-lg glow" onClick={onNext}>Siguiente nivel →</button>}
               {level.boss && <button className="btn btn-primary btn-lg glow" onClick={onCertificate}>🎓 Ver certificado</button>}
               {level.boss && (

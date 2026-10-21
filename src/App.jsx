@@ -6,6 +6,7 @@ import LevelPlayer from './components/LevelPlayer.jsx';
 import Notes from './components/Notes.jsx';
 import Badges from './components/Badges.jsx';
 import Certificate from './components/Certificate.jsx';
+import SaveModal from './components/SaveModal.jsx';
 import TimeMachine from './components/TimeMachine.jsx';
 import { LEVELS } from './data/levels.js';
 import { BADGES, earnedBadges } from './data/game.js';
@@ -18,6 +19,7 @@ export default function App() {
   const [levelId, setLevelId] = useState(null);
   const [attempt, setAttempt] = useState(0);
   const [toasts, setToasts] = useState([]);
+  const [saveOpen, setSaveOpen] = useState(false);
 
   useEffect(() => setMuted(progress.muted), [progress.muted]);
 
@@ -70,6 +72,18 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
+  // Progreso traído desde un archivo de otro equipo.
+  function loadProgress(saved) {
+    setProgress({ ...EMPTY_PROGRESS, ...saved });
+    setSaveOpen(false);
+    nav('map');
+    const item = { key: `carga-${Date.now()}`, icon: '📂', title: 'Progreso cargado', name: `¡Hola de nuevo, ${saved.name}!` };
+    setToasts((t) => [...t, item]);
+    setTimeout(() => setToasts((t) => t.filter((x) => x !== item)), 4500);
+  }
+
+  const openSave = () => setSaveOpen(true);
+
   let content;
   if (screen === 'welcome' || !progress.name) {
     content = (
@@ -80,6 +94,7 @@ export default function App() {
           nav('timemachine');
         }}
         onContinue={() => nav(progress.prologueSeen ? 'map' : 'timemachine')}
+        onLoadFile={openSave}
       />
     );
   } else if (screen === 'timemachine') {
@@ -106,6 +121,7 @@ export default function App() {
         onRetry={() => play(levelId)}
         onNext={nextLevel ? () => play(nextLevel.id) : null}
         onCertificate={() => nav('certificate')}
+        onSave={openSave}
       />
     );
   } else {
@@ -116,7 +132,7 @@ export default function App() {
     };
     content = (
       <>
-        <Hud progress={progress} onNav={nav} onToggleMute={() => setProgress((p) => ({ ...p, muted: !p.muted }))} />
+        <Hud progress={progress} onNav={nav} onSave={openSave} onToggleMute={() => setProgress((p) => ({ ...p, muted: !p.muted }))} />
         {pages[screen] || (
           <LevelMap
             progress={progress}
@@ -138,12 +154,13 @@ export default function App() {
         <span className="blob b3" />
       </div>
       {content}
+      {saveOpen && <SaveModal progress={progress} onLoad={loadProgress} onClose={() => setSaveOpen(false)} />}
       <div className="toasts">
         {toasts.map((t) => (
           <div key={t.key} className="toast">
             <span className="toast-icon">{t.icon}</span>
             <div>
-              <div className="toast-title">¡Nueva insignia!</div>
+              <div className="toast-title">{t.title || '¡Nueva insignia!'}</div>
               <div className="toast-name">{t.name}</div>
             </div>
           </div>
