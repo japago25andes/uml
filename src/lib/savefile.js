@@ -10,6 +10,7 @@ const GAMES = {
   'casos-de-uso': 'Misión: Casos de Uso',
   uml: 'Misión: UML',
   frontend: 'Misión: Frontend',
+  calidad: 'Misión: Calidad',
 };
 
 const FORMAT = 1;
